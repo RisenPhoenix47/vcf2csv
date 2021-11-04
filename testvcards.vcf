@@ -1,0 +1,56 @@
+BEGIN:VCARD
+VERSION:3.0
+PRODID:-//Apple Inc.//iOS 14.5.1//EN
+N:Schmoe Jr. ;Joe;;;
+FN:Joe Schmoe Jr. 
+ORG:SIM City Mayor;
+item1.TEL;type=pref:+11234567890
+REV:2021-07-06T22:13:22Z
+END:VCARD
+BEGIN:VCARD
+VERSION:3.0
+PRODID:-//Apple Inc.//iOS 14.5.1//EN
+N:Doe;Mr. John;;;
+FN:Mr. John Doe
+item1.TEL;type=pref:+10987654321
+item1.X-ABLabel:
+REV:2021-05-20T00:19:48Z
+END:VCARD
+BEGIN:VCARD
+VERSION:3.0
+PRODID:-//Apple Inc.//iOS 14.4//EN
+N:;Alex;;;
+FN:Alex
+ORG:Sheriff's Office ;
+TEL;type=CELL;type=VOICE;type=pref:(123) 456-7890
+REV:2021-04-01T15:15:59Z
+END:VCARD
+BEGIN:VCARD
+VERSION:3.0
+PRODID:-//Apple Inc.//iOS 14.5.1//EN
+N:;Alice;;;
+FN:Alice
+item1.TEL;type=pref:+1 (345) 555-5555
+item2.TEL:(735) 555-8888
+REV:2021-07-29T16:42:54Z
+END:VCARD
+BEGIN:VCARD
+VERSION:3.0
+PRODID:-//Apple Inc.//iOS 14.4//EN
+N:Chaplin;Charlie;;;
+FN:Charlie Chaplin
+ORG:MGM Cinemas;
+TEL;type=CELL;type=VOICE;type=pref:(800) 222-4444
+REV:2021-03-16T20:53:46Z
+END:VCARD
+BEGIN:VCARD
+VERSION:3.0
+PRODID:-//Apple Inc.//iOS 14.4//EN
+N:Dinkley ;Velma;;;
+FN:Velma Dinkley 
+ORG:Scooby Doo INC. ;
+EMAIL;type=INTERNET;type=HOME;type=pref:velma.dinkley@jinkies.com
+EMAIL;type=INTERNET;type=WORK:Velma@mysteryinc.com
+TEL;type=CELL;type=VOICE;type=pref:(800) 123-4567
+REV:2021-02-12T11:02:39Z
+END:VCARD
