@@ -1,1 +1,1 @@
-# vcf2csv
+This is a simple Python script that takes text from a vcard file and changes it to CSV format. It was created for Microsoft Outlook as a workaround to a bug where Outlook will only import the first contact in the vcard file if it contains multiple contacts. This script pulls data that is relevent to my organization, but can be modified to include other sections. 
