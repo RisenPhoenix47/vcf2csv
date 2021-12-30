@@ -1,6 +1,7 @@
 from more_itertools import split_after
 import csv
 import argparse
+import re
 
 def parse():
 	parser = argparse.ArgumentParser()
@@ -88,33 +89,72 @@ def get_2_1_info(vcard):
 
 def get_3_0_info(vcard):
 	dictionary = {}
+	emails = []
+	phonenums = []
 	'''Scrapes info from version 3.0 vCard files'''
 	for line in vcard:
-		if ";;;" in line:
-			full_name = line.split(':')[1]
-			first_name = full_name.split(';')[1]
-			last_name = full_name.split(';')[0]
-			dictionary["First Name"] = first_name.rstrip()
-			dictionary["Last Name"] = last_name.rstrip()
-		if "TEL;type=HOME" in line:
-			home_phone = line.split(':')[1]
-			dictionary["Home Phone"] = home_phone.rstrip()
-		if "TEL;type=pref" in line:
-			primary_phone = line.split(':')[1]
-			dictionary["Mobile Phone"] = primary_phone.rstrip()
-		if "TEL;type=CELL" in line:
-			cell_phone = line.split(':')[1]
-			dictionary["Mobile Phone"] = cell_phone.rstrip()
-		if "TEL;type=WORK" in line:
-			work_phone = line.split(':')[1]
-			dictionary["Business Phone"] = work_phone.rstrip()
-		if "EMAIL;type=INTERNET;type=pref" in line:
-			email = line.split(':')[1]
-			dictionary["E-mail Address"] = email.rstrip()
-		if "item2.EMAIL;type=INTERNET" in line:
-			email1 = line.split(':')[1]
-			dictionary["E-mail 2 Address"] = email1.rstrip()
+		if re.search("^N:", line):
+			if "N:;;;;" in line:
+				for line in vcard:
+					if "FN:" in line:
+						first_name = line.split(':', 1)[1]
+						dictionary["First Name"] = first_name.strip()
+			else:
+				try:
+					full_name = line.split(':', 1)[1]
+					first_name1 = full_name.split(';', 1)[1]
+					first_name = first_name1.replace(';', '')
+					last_name1 = full_name.split(';', 1)[0]
+					last_name = last_name1.replace(';', '')
+					dictionary["First Name"] = first_name.strip()
+					dictionary["Last Name"] = last_name.strip()
+				except:
+					IndexError
+					if "FN" in line:
+						first_name = line.split(':', 1)[1]
+						dictionary["First Name"] = first_name.strip()
+		if "ORG" in line:
+			company = line.split(":")[1]
+			company1 = company.replace(';', '')
+			dictionary["Company"] = company1.strip()
+		if "TITLE" in line:
+			title = line.split(':')[1]
+			dictionary["Job Title"] = title.strip()
+		if "TEL" in line:
+			if "type=HOME" in line:
+				home_phone = line.split(':')[1]
+				dictionary["Home Phone"] = home_phone.rstrip()
+			elif "type=CELL" in line:
+				cell_phone = line.split(':')[1]
+				dictionary["Mobile Phone"] = cell_phone.rstrip()
+			elif "type=WORK" in line:
+				work_phone = line.split(':')[1]
+				dictionary["Business Phone"] = work_phone.rstrip()
+			elif "type=FAX" in line:
+				fax = line.split(':')[1]
+				dictionary["Other Fax"] = fax.rstrip()
+			else:
+				phone = line.split(":")[1]
+				phonenums.append(phone)
+		if len(phonenums) == 2:
+			dictionary["Other Phone"] = phonenums[0].rstrip()
+			dictionary["Mobile Phone"] = phonenums[1].rstrip()
+		if len(phonenums) == 1:
+			dictionary["Other Phone"] = phonenums[0].rstrip()
+		if "EMAIL" in line:
+			email = line.split(":")[1]
+			emails.append(email)
+			if len(emails) == 3:
+				dictionary["E-mail Address"] = emails[0].strip()
+				dictionary["E-mail 2 Address"] = emails[1].strip()
+				dictionary["E-mail 3 Address"] = emails[2].strip()
+			elif len(emails) == 2:
+				dictionary["E-mail Address"] = emails[0].strip()
+				dictionary["E-mail 2 Address"] = emails[1].strip()
+			elif len(emails) == 1:
+				dictionary["E-mail Address"] = emails[0].strip()
 	return dictionary
 
-parse()
+if __name__ == "__main__":
+	parse()
 
